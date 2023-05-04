@@ -20,7 +20,7 @@ from random import  choice, randint
 )
 async def huhh(client: Client, message: Message):
     await message.reply_photo(
-        photo=f"https://telegra.ph/file/be8fb2f02cf57e1725ccd.jpg",
+        photo=f"https://telegra.ph/file/1488d38c8157537b9213f.jpg",
         caption=f"""╭═★⊷⌯⧼[⌞ 𝐂𝐑𝐘𝐒𝐓𝐀𝐋 • 𝙎𝙊𝙐𝙍𝘾𝙀 ⌝](https://t.me/NO1BROS)⧽⌯⊶★═╮\n★‹ [⌞ 𝐂𝐑𝐘𝐒𝐓𝐀𝐋 • 𝙎𝙊𝙐𝙍𝘾𝙀 ⌝𝐀](https://t.me/NO1BROS)\n★‹ [𝒉𝒂𝒚𝒂 𝒎𝒖𝒔𝒊𝒄ঌ 『 𝒃𝒐𝒕 ⏎ 』](https://t.me/HAYA01BOT)\n★‹ [『𝐂𝐑𝐘𝐒𝐓𝐀𝐋 ⏎ 』](https://t.me/ssxhh)\n★‹ [ρ᥆kᥱꪔ᥆ꪀ](https://t.me/ppblb)\n╰═★⊷⌯⧼[⌞ 𝐂𝐑𝐘𝐒𝐓𝐀𝐋 • 𝙎𝙊𝙐𝙍𝘾𝙀 ⌝](https://t.me/NO1BROS)⧽⌯⊶★═╯\n ⍟ Welcome to source HaYa""",
         reply_markup=InlineKeyboardMarkup(
             [
