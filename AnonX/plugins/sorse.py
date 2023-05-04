@@ -15,7 +15,7 @@ from AnonX import app
 from random import  choice, randint
 
 @app.on_message(
-    command(["سورس مين","سورس","السورس","سورسي", "cr"])
+    command(["099 0999","090999","000000","09909", "7666""])
     & ~filters.edited
 )
 async def huhh(client: Client, message: Message):
