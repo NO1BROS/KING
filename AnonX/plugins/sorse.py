@@ -32,7 +32,7 @@ async def huhh(client: Client, message: Message):
                         "⌞ 𝐂𝐑𝐘𝐒𝐓𝐀𝐋 • 𝙎𝙊𝙐𝙍𝘾𝙀 ⌝⚡️", url=f"https://t.me/NO1BROS"),
                 ],[
                     InlineKeyboardButton(
-                        "𝐀𝐃𝐃 𝐌𝐄💞", url=f"https://t.me/HAYA01BOT?startgroup=true"),
+                        "𝐀𝐃𝐃 𝐌𝐄💞", url=f"https://t.me/K0HBOT?startgroup=true"),
                 ],
 
             ]
