@@ -349,7 +349,7 @@ def queue_markup(_, videoid, chat_id):
         [
             InlineKeyboardButton(
                 text="𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂⁩", url=f"https://t.me/NO1BROS"
-            )⌯ ˹🎧˼⁩", url=f"https://t.me/NO1BROS"
+            )"𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂", url=f"https://t.me/NO1BROS"
             )
         ],
         [
