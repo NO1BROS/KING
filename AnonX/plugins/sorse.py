@@ -59,7 +59,7 @@ async def ihd(client: Client, message: Message):
     )
 
 
-@app.on_message(command(["صور","صور"]))
+@app.on_message(command(["صور","صوره"]))
 async def ihd(client: Client, message: Message):
     rs = random.randint(39,148)
     url = f"https://t.me/GTTUTY/{rs}"
