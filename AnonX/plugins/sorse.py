@@ -21,7 +21,7 @@ from random import  choice, randint
 async def huhh(client: Client, message: Message):
     await message.reply_photo(
         photo=f"https://telegra.ph/file/1488d38c8157537b9213f.jpg",
-        caption=f"""╭═★⊷⌯⧼[⌞ 𝐂𝐑𝐘𝐒𝐓𝐀𝐋 • 𝙎𝙊𝙐𝙍𝘾𝙀 ⌝](https://t.me/NO1BROS)⧽⌯⊶★═╮\n★‹ [⌞ 𝐂𝐑𝐘𝐒𝐓𝐀𝐋 • 𝙎𝙊𝙐𝙍𝘾𝙀 ⌝𝐀](https://t.me/NO1BROS)\n★‹ [𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂 『 𝒃𝒐𝒕 ⏎ 』](https://t.me/01BOT?startgroup=true)\n★‹ [『𝐂𝐑𝐘𝐒𝐓𝐀𝐋 ⏎ 』](https://t.me/ssxhh)\n★‹ [𝐂𝐑𝐘𝐒𝐓𝐀𝐋 ](https://t.me/ppblb)\n╰═★⊷⌯⧼[⌞ 𝐂𝐑𝐘𝐒𝐓𝐀𝐋 • 𝙎𝙊𝙐𝙍𝘾𝙀 ⌝](https://t.me/NO1BROS)⧽⌯⊶★═╯\n ⍟ Welcome to source 𝐂𝐑𝐘𝐒𝐓𝐀𝐋 """,
+        caption=f"""╭═★⊷⌯⧼[⌞ 𝐂𝐑𝐘𝐒𝐓𝐀𝐋 • 𝙎𝙊𝙐𝙍𝘾𝙀 ⌝](https://t.me/NO1BROS )⧽⌯⊶★═╮\n★‹ [⌞ 𝐂𝐑𝐘𝐒𝐓𝐀𝐋 • 𝙎𝙊𝙐𝙍𝘾𝙀 ⌝𝐀](https://t.me/NO1BROS)\n★‹ [ 𝐌𝐔𝐒𝐈𝐂 『 𝒃𝒐𝒕 ⏎ 』](https://t.me/K0HBOT?startgroup=true)\n★‹ [『𝐂𝐑𝐘𝐒𝐓𝐀𝐋 ⏎ 』](https://t.me/ssxhh)\n★‹ [group help ](https://t.me/ppblb)\n╰═★⊷⌯⧼[⌞ 𝐂𝐑𝐘𝐒𝐓𝐀𝐋 • 𝙎𝙊𝙐𝙍𝘾𝙀 ⌝](https://t.me/NO1BROS)⧽⌯⊶★═╯\n ⍟ Welcome to source 𝐂𝐑𝐘𝐒𝐓𝐀𝐋 """,
         reply_markup=InlineKeyboardMarkup(
             [
                 [
@@ -32,7 +32,7 @@ async def huhh(client: Client, message: Message):
                         "⌞ 𝐂𝐑𝐘𝐒𝐓𝐀𝐋 • 𝙎𝙊𝙐𝙍𝘾𝙀 ⌝⚡️", url=f"https://t.me/NO1BROS"),
                 ],[
                     InlineKeyboardButton(
-                        "𝐀𝐃𝐃 𝐌𝐄💞", url=f"https://t.me/01BOT?startgroup=true"),
+                        "𝐀𝐃𝐃 𝐌𝐄💞", url=f"https://t.me/K0HBOT?startgroup=true"),
                 ],
 
             ]
