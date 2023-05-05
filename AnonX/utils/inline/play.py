@@ -128,7 +128,7 @@ def telegram_markup_timer(_, chat_id, played, dur):
         ],
         [
             InlineKeyboardButton(
-                text="âœ¯ á´„ÊŸá´sá´‡ âœ¯", callback_data=f"close"
+                text="مسح القائمة", callback_data=f"close"
             )
         ],
     ]
@@ -157,12 +157,12 @@ def stream_markup(_, videoid, chat_id):
         ],
         [
             InlineKeyboardButton(
-                text="âŒž ð˜¾ð™ ð–¢» âŒ¯ ÙŽÙð™ˆÙŽÙð™ÙŽÙð™ŽÙŽÙð™„ÙŽÙð˜¾ âŒ¯ Ë¹ðŸŽ§Ë¼â©", url=f"https://t.me/no1bros"
+                text="𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂  ⚚", url=f"https://t.me/no1bros"
             )
         ],
         [
             InlineKeyboardButton(
-                text="âœ¯ á´„ÊŸá´sá´‡ âœ¯", callback_data=f"close"
+                text="مسح القائمه", callback_data=f"close"
             )
         ],
     ]
@@ -188,12 +188,12 @@ def telegram_markup(_, chat_id):
         ],
         [
             InlineKeyboardButton(
-                text="âŒž ð˜¾ð™ ð–¢» âŒ¯ ÙŽÙð™ˆÙŽÙð™ÙŽÙð™ŽÙŽÙð™„ÙŽÙð˜¾ âŒ¯ Ë¹ðŸŽ§Ë¼â©", url=f"https://t.me/no1bros"
+                text="𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂  ⚚", url=f"https://t.me/no1bros"
             )
         ],
         [
             InlineKeyboardButton(
-                text="âœ¯ á´„ÊŸá´sá´‡ âœ¯", callback_data=f"close"
+                text="مسح القائمة", callback_data=f"close"
             )
         ],
     ]
@@ -317,7 +317,7 @@ close_keyboard = InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        text="âœ¯ á´„ÊŸá´sá´‡ âœ¯", callback_data="close"
+                        text="مسح القائمة", callback_data="close"
                     )
                 ]    
             ]
@@ -340,7 +340,7 @@ def queue_markup(_, videoid, chat_id):
                 text="â˜†", callback_data=f"add_playlist {videoid}"
             ),
             InlineKeyboardButton(
-                text="â€£â€£I", callback_data=f"ADMIN Skip|{chat_id}"
+                text="تخطي", callback_data=f"ADMIN Skip|{chat_id}"
             ),
             InlineKeyboardButton(
                 text="â–¢", callback_data=f"ADMIN Stop|{chat_id}"
