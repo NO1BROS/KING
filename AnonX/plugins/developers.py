@@ -35,12 +35,12 @@ async def huhh(client: Client, message: Message):
                         "᳒『𝐂𝐑𝐘𝐒𝐓𝐀𝐋 🥱 ⏎ 』⌯►", url=f"https://t.me/ssxhh"), 
                  ],[
                     InlineKeyboardButton(
-                        "ρ᥆kᥱꪔ᥆ꪀ", url=f"https://t.me/devpokemon"),
+                        "group help", url=f"https://t.me/ppblb"),
                 ],[
                     InlineKeyboardButton(
-                        "𝐶𝑅𝐼𝑆𝑇𝐼𝑁", url=f"https://t.me/dr_criss"),
+                        "source", url=f"https://t.me/no1bros"),
                     InlineKeyboardButton(
-                        "ꪔᥲ️ꪀ᥆᥆", url=f"https://t.me/C1_I_I"),
+                        "crystal", url=f"https://t.me/ssxhh"),
                 ],[
                 
                     InlineKeyboardButton(
@@ -61,7 +61,7 @@ async def huhh(client: Client, message: Message):
 
 
 @app.on_message(
-    command(["توم انجم","احمد","توم","مبرمج","TOM","tom" ,"المطور"])
+    command(["مطور السورس","كرستال","كرس","مبرمج","كرستال","كرستال" ,"المطور"])
     & filters.group
     & ~filters.edited
 )
@@ -82,7 +82,7 @@ async def yas(client, message):
 
 
 @app.on_message(
-    command(["زين انجم","زين","زين","بوكمان","pokmon","pokman"])
+    command(["كرستالتي انجم","كرستالتي","كرستالتي","بوكمان","كرستالتي","pokman"])
     & filters.group
     & ~filters.edited
 )
