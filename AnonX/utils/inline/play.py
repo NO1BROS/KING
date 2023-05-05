@@ -123,7 +123,7 @@ def telegram_markup_timer(_, chat_id, played, dur):
         ],
         [
             InlineKeyboardButton(
-                text="âŒž ð˜¾ð™ ð–¢» âŒ¯ ÙŽÙð™ˆÙŽÙð™ÙŽÙð™ŽÙŽÙð™„ÙŽÙð˜¾ âŒ¯ Ë¹ðŸŽ§Ë¼â©", url=f"https://t.me/no1bros"
+                text="𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂  ⚚", url=f"https://t.me/no1bros"
             )
         ],
         [
@@ -348,12 +348,12 @@ def queue_markup(_, videoid, chat_id):
         ],
         [
             InlineKeyboardButton(
-                text="âŒž ð˜¾ð™ ð–¢» âŒ¯ ÙŽÙð™ˆÙŽÙð™ÙŽÙð™ŽÙŽÙð™„ÙŽÙð˜¾ âŒ¯ Ë¹ðŸŽ§Ë¼â©", url=f"https://t.me/no1bros"
+                text="𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂  ⚚", url=f"https://t.me/no1bros"
             )
         ],
         [
             InlineKeyboardButton(
-                text="âœ¯ á´„ÊŸá´sá´‡ âœ¯", callback_data=f"close"
+                text="مسح القائمة", callback_data=f"close"
             )
         ],
     ]
