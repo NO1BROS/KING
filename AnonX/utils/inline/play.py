@@ -14,25 +14,25 @@ def stream_markup_timer(_, videoid, chat_id, played, dur):
     percentage = (played_sec / duration_sec) * 100
     anon = math.floor(percentage)
     if 0 < anon <= 10:
-        bar = "◉—————————"
+        bar = "â—‰â€”â€”â€”â€”â€”â€”â€”â€”â€”"
     elif 10 < anon < 20:
-        bar = "—◉————————"
+        bar = "â€”â—‰â€”â€”â€”â€”â€”â€”â€”â€”"
     elif 20 <= anon < 30:
-        bar = "——◉———————"
+        bar = "â€”â€”â—‰â€”â€”â€”â€”â€”â€”â€”"
     elif 30 <= anon < 40:
-        bar = "———◉——————"
+        bar = "â€”â€”â€”â—‰â€”â€”â€”â€”â€”â€”"
     elif 40 <= anon < 50:
-        bar = "————◉—————"
+        bar = "â€”â€”â€”â€”â—‰â€”â€”â€”â€”â€”"
     elif 50 <= anon < 60:
-        bar = "—————◉————"
+        bar = "â€”â€”â€”â€”â€”â—‰â€”â€”â€”â€”"
     elif 60 <= anon < 70:
-        bar = "——————◉———"
+        bar = "â€”â€”â€”â€”â€”â€”â—‰â€”â€”â€”"
     elif 70 <= anon < 80:
-        bar = "———————◉——"
+        bar = "â€”â€”â€”â€”â€”â€”â€”â—‰â€”â€”"
     elif 80 <= anon < 95:
-        bar = "————————◉—"
+        bar = "â€”â€”â€”â€”â€”â€”â€”â€”â—‰â€”"
     else:
-        bar = "—————————◉"
+        bar = "â€”â€”â€”â€”â€”â€”â€”â€”â€”â—‰"
 
     buttons = [
         [
@@ -43,30 +43,30 @@ def stream_markup_timer(_, videoid, chat_id, played, dur):
         ],
         [
             InlineKeyboardButton(
-                text="▷",
+                text="â–·",
                 callback_data=f"ADMIN Resume|{chat_id}",
             ),
             InlineKeyboardButton(
                 text="II", callback_data=f"ADMIN Pause|{chat_id}"
             ),
             InlineKeyboardButton(
-                text="☆", callback_data=f"add_playlist {videoid}"
+                text="â˜†", callback_data=f"add_playlist {videoid}"
             ),
             InlineKeyboardButton(
-                text="‣‣I", callback_data=f"ADMIN Skip|{chat_id}"
+                text="â€£â€£I", callback_data=f"ADMIN Skip|{chat_id}"
             ),
             InlineKeyboardButton(
-                text="▢", callback_data=f"ADMIN Stop|{chat_id}"
+                text="â–¢", callback_data=f"ADMIN Stop|{chat_id}"
             ),
         ],
         [
             InlineKeyboardButton(
-                text="⌞𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂 ", url=f"https://t.me/NO1BROS"
+                text="âŒž ð˜¾ð™ ð–¢» âŒ¯ ÙŽÙð™ˆÙŽÙð™ÙŽÙð™ŽÙŽÙð™„ÙŽÙð˜¾ âŒ¯ Ë¹ðŸŽ§Ë¼â©", url=f"https://t.me/no1bros"
             )
         ],
         [
             InlineKeyboardButton(
-                text="𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂", callback_data=f"close"
+                text="âœ¯ á´„ÊŸá´sá´‡ âœ¯", callback_data=f"close"
             )
         ],
     ]
@@ -79,25 +79,25 @@ def telegram_markup_timer(_, chat_id, played, dur):
     percentage = (played_sec / duration_sec) * 100
     anon = math.floor(percentage)
     if 0 < anon <= 10:
-        bar = "◉—————————"
+        bar = "â—‰â€”â€”â€”â€”â€”â€”â€”â€”â€”"
     elif 10 < anon < 20:
-        bar = "—◉————————"
+        bar = "â€”â—‰â€”â€”â€”â€”â€”â€”â€”â€”"
     elif 20 <= anon < 30:
-        bar = "——◉———————"
+        bar = "â€”â€”â—‰â€”â€”â€”â€”â€”â€”â€”"
     elif 30 <= anon < 40:
-        bar = "———◉——————"
+        bar = "â€”â€”â€”â—‰â€”â€”â€”â€”â€”â€”"
     elif 40 <= anon < 50:
-        bar = "————◉—————"
+        bar = "â€”â€”â€”â€”â—‰â€”â€”â€”â€”â€”"
     elif 50 <= anon < 60:
-        bar = "—————◉————"
+        bar = "â€”â€”â€”â€”â€”â—‰â€”â€”â€”â€”"
     elif 60 <= anon < 70:
-        bar = "——————◉———"
+        bar = "â€”â€”â€”â€”â€”â€”â—‰â€”â€”â€”"
     elif 70 <= anon < 80:
-        bar = "———————◉——"
+        bar = "â€”â€”â€”â€”â€”â€”â€”â—‰â€”â€”"
     elif 80 <= anon < 95:
-        bar = "————————◉—"
+        bar = "â€”â€”â€”â€”â€”â€”â€”â€”â—‰â€”"
     else:
-        bar = "—————————◉"
+        bar = "â€”â€”â€”â€”â€”â€”â€”â€”â€”â—‰"
 
     buttons = [
         [
@@ -108,27 +108,27 @@ def telegram_markup_timer(_, chat_id, played, dur):
         ],
         [
             InlineKeyboardButton(
-                text="▷",
+                text="â–·",
                 callback_data=f"ADMIN Resume|{chat_id}",
             ),
             InlineKeyboardButton(
                 text="II", callback_data=f"ADMIN Pause|{chat_id}"
             ),
             InlineKeyboardButton(
-                text="‣‣I", callback_data=f"ADMIN Skip|{chat_id}"
+                text="â€£â€£I", callback_data=f"ADMIN Skip|{chat_id}"
             ),
             InlineKeyboardButton(
-                text="▢", callback_data=f"ADMIN Stop|{chat_id}"
+                text="â–¢", callback_data=f"ADMIN Stop|{chat_id}"
             ),
         ],
         [
             InlineKeyboardButton(
-                text="⌞𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂 ˼⁩", url=f"https://t.me/NO1BROS"
+                text="âŒž ð˜¾ð™ ð–¢» âŒ¯ ÙŽÙð™ˆÙŽÙð™ÙŽÙð™ŽÙŽÙð™„ÙŽÙð˜¾ âŒ¯ Ë¹ðŸŽ§Ë¼â©", url=f"https://t.me/no1bros"
             )
         ],
         [
             InlineKeyboardButton(
-                text="𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂 ", callback_data=f"close"
+                text="âœ¯ á´„ÊŸá´sá´‡ âœ¯", callback_data=f"close"
             )
         ],
     ]
@@ -139,30 +139,30 @@ def stream_markup(_, videoid, chat_id):
     buttons = [
         [
             InlineKeyboardButton(
-                text="▷",
+                text="â–·",
                 callback_data=f"ADMIN Resume|{chat_id}",
             ),
             InlineKeyboardButton(
                 text="II", callback_data=f"ADMIN Pause|{chat_id}"
             ),
             InlineKeyboardButton(
-                text="☆", callback_data=f"add_playlist {videoid}"
+                text="â˜†", callback_data=f"add_playlist {videoid}"
             ),
             InlineKeyboardButton(
-                text="‣‣I", callback_data=f"ADMIN Skip|{chat_id}"
+                text="â€£â€£I", callback_data=f"ADMIN Skip|{chat_id}"
             ),
             InlineKeyboardButton(
-                text="▢", callback_data=f"ADMIN Stop|{chat_id}"
+                text="â–¢", callback_data=f"ADMIN Stop|{chat_id}"
             ),
         ],
         [
             InlineKeyboardButton(
-                text="𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂", url=f"https://t.me/NO1BROS"
+                text="âŒž ð˜¾ð™ ð–¢» âŒ¯ ÙŽÙð™ˆÙŽÙð™ÙŽÙð™ŽÙŽÙð™„ÙŽÙð˜¾ âŒ¯ Ë¹ðŸŽ§Ë¼â©", url=f"https://t.me/no1bros"
             )
         ],
         [
             InlineKeyboardButton(
-                text="𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂", callback_data=f"close"
+                text="âœ¯ á´„ÊŸá´sá´‡ âœ¯", callback_data=f"close"
             )
         ],
     ]
@@ -173,27 +173,27 @@ def telegram_markup(_, chat_id):
     buttons = [
         [
             InlineKeyboardButton(
-                text="▷",
+                text="â–·",
                 callback_data=f"ADMIN Resume|{chat_id}",
             ),
             InlineKeyboardButton(
                 text="II", callback_data=f"ADMIN Pause|{chat_id}"
             ),
             InlineKeyboardButton(
-                text="‣‣I", callback_data=f"ADMIN Skip|{chat_id}"
+                text="â€£â€£I", callback_data=f"ADMIN Skip|{chat_id}"
             ),
             InlineKeyboardButton(
-                text="▢", callback_data=f"ADMIN Stop|{chat_id}"
+                text="â–¢", callback_data=f"ADMIN Stop|{chat_id}"
             ),
         ],
         [
             InlineKeyboardButton(
-                text="𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂", url=f"https://t.me/NO1BROS"
+                text="âŒž ð˜¾ð™ ð–¢» âŒ¯ ÙŽÙð™ˆÙŽÙð™ÙŽÙð™ŽÙŽÙð™„ÙŽÙð˜¾ âŒ¯ Ë¹ðŸŽ§Ë¼â©", url=f"https://t.me/no1bros"
             )
         ],
         [
             InlineKeyboardButton(
-                text="𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂", callback_data=f"close"
+                text="âœ¯ á´„ÊŸá´sá´‡ âœ¯", callback_data=f"close"
             )
         ],
     ]
@@ -296,7 +296,7 @@ def slider_markup(
         ],
         [
             InlineKeyboardButton(
-                text="◁",
+                text="â—",
                 callback_data=f"slider B|{query_type}|{query}|{user_id}|{channel}|{fplay}",
             ),
             InlineKeyboardButton(
@@ -304,7 +304,7 @@ def slider_markup(
                 callback_data=f"forceclose {query}|{user_id}",
             ),
             InlineKeyboardButton(
-                text="▷",
+                text="â–·",
                 callback_data=f"slider F|{query_type}|{query}|{user_id}|{channel}|{fplay}",
             ),
         ],
@@ -317,7 +317,7 @@ close_keyboard = InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        text="𝐒𝐎𝐔𝐑𝐂𝐄", callback_data="close"
+                        text="âœ¯ á´„ÊŸá´sá´‡ âœ¯", callback_data="close"
                     )
                 ]    
             ]
@@ -330,31 +330,30 @@ def queue_markup(_, videoid, chat_id):
     buttons = [
         [
             InlineKeyboardButton(
-                text="▷",
+                text="â–·",
                 callback_data=f"ADMIN Resume|{chat_id}",
             ),
             InlineKeyboardButton(
                 text="II", callback_data=f"ADMIN Pause|{chat_id}"
             ),
             InlineKeyboardButton(
-                text="☆", callback_data=f"add_playlist {videoid}"
+                text="â˜†", callback_data=f"add_playlist {videoid}"
             ),
             InlineKeyboardButton(
-                text="‣‣I", callback_data=f"ADMIN Skip|{chat_id}"
+                text="â€£â€£I", callback_data=f"ADMIN Skip|{chat_id}"
             ),
             InlineKeyboardButton(
-                text="▢", callback_data=f"ADMIN Stop|{chat_id}"
+                text="â–¢", callback_data=f"ADMIN Stop|{chat_id}"
             ),
         ],
         [
             InlineKeyboardButton(
-                text="𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂⁩", url=f"https://t.me/NO1BROS"
-            )"𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂", url=f"https://t.me/NO1BROS"
+                text="âŒž ð˜¾ð™ ð–¢» âŒ¯ ÙŽÙð™ˆÙŽÙð™ÙŽÙð™ŽÙŽÙð™„ÙŽÙð˜¾ âŒ¯ Ë¹ðŸŽ§Ë¼â©", url=f"https://t.me/no1bros"
             )
         ],
         [
             InlineKeyboardButton(
-                text="𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂", callback_data=f"close"
+                text="âœ¯ á´„ÊŸá´sá´‡ âœ¯", callback_data=f"close"
             )
         ],
     ]
