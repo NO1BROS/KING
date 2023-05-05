@@ -1,4 +1,4 @@
-#✘ crystal MUSIC @ssxhh ✘
+
 
 import asyncio
 
@@ -64,5 +64,5 @@ async def Italymusic(client: Client, message: Message):
 
                     await message.reply_photo(photo.file_id,       caption=f"""**نعم حبيبي :** {italy} 🥰❤\n**انا اسمي القميل :** {bot_name} 🥺🙈\n**رتبتك هي :** {rank}""", reply_markup=keyboard)
 
-#✘ crystil MUSIC @ssxhh ✘
+
 
