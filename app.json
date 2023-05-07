@@ -1,7 +1,7 @@
 {
-    "name": "𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂  ⚚ ダ ᴍᴜsɪᴄ",
+    "name": "𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂  ",
     "description": "A Telegram Music Player Bot, written in Python with Pyrogram and Py-Tgcalls.",
-    "logo": "https://telegra.ph/file/b57d3c266380d6d758b9d.jpg",
+    "logo": "https://telegra.ph/file/1488d38c8157537b9213f.jpg",
     "keywords": [
     "python3",
     "telegram",
@@ -13,52 +13,52 @@
     ],
     "env": {
       "API_ID": {
-        "description": "Get this value from https://my.telegram.org",
+        "description": "مايحتاج ذكاء ترا خلي  ال ايبي ايدي مال حساب المساعد",
         "value": "",
         "required": true
       },
       "API_HASH": {
-        "description": "Get this value from https://my.telegram.org",
+        "description": "وهنا ال ايبي هاش مال حساب المساعد",
         "value": "",
         "required": true
       },
       "BOT_TOKEN": {
-        "description": "A Bot's token from Botfather",
+        "description": "يا العزيز اتخلي هنا توكن بوتك فهمت لاضل اثول",
         "value": "",
         "required": true
       },
       "MONGO_DB_URI": {
-        "description": "حط هنا كود المونجو .",
+        "description": "حط هنا كود المونجو  او عوف هاذا",
         "value": "mongodb+srv://bot_vambir:Al2552001@cluster0.heabj.mongodb.net/vambir_bot?retryWrites=true&w=majority",
         "required": false
       },
       "MUSIC_BOT_NAME": {
-        "description": "A name for your Music Bot. You can use special characters bot ko jhaat farak ni padega",
-        "value": "𝐂𝐑𝐘𝐒𝐓𝐀𝐋 𝐌𝐔𝐒𝐈𝐂ダ ᴍᴜsɪᴄ",
+        "description": "اسم بوتك",
+        "value": "Crystal",
         "required": true
       },
       "OWNER_ID": {
-        "description": "The user id(s) of user(s) whom you would like to add as a OWNER. Multiple values shall be seperated with a space.",
+        "description": "خلي ايدي المالك وبس لدوخني",
         "value": "",
         "required": true
       },
       "STRING_SESSION": {
-        "description": "A Pyrogram String Session. One Assistant is Compulsory.",
+        "description": "خلي كود جلسه البايروكرام ونجب",
         "value": "",
         "required": true
       },
       "HEROKU_API_KEY": {
-        "description": "Your Heroku account's API key",
+        "description": "ضع هنا APK  HEROKU الخاص بك",
         "value": "",
         "required": false
       },
       "HEROKU_APP_NAME": {
-        "description": "Your heroku app/bot's name",
+        "description": "اسم البروجكتر الي خليته فوك اول مادخلت نسخه وخلي اهنا ",
         "value": "",
         "required": false
       },
       "LOG_GROUP_ID": {
-        "description": "Your Log Group ID, add your bot and promote as an admin with full rights!. Channel ki id mat daal dena bsdk.",
+        "description": "خلي ايدي اكروب التخزين وخلي ويا هيج100-",
         "value": "",
         "required": true
       }
