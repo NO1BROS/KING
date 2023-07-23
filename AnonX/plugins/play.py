@@ -1,40 +1,71 @@
+#
+# Copyright (C) 2021-2022 by TeamYukki@Github, < https://github.com/TeamYukki >.
+#
+# This file is part of < https://github.com/TeamYukki/YukkiMusicBot > project,
+# and is released under the "GNU v3.0 License Agreement".
+# Please see < https://github.com/TeamYukki/YukkiMusicBot/blob/master/LICENSE >
+#
+# All rights reserved.
+
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+
 import random
 import string
 from ast import ExceptHandler
 
 from pyrogram import filters
-from pyrogram.types import (InlineKeyboardMarkup, InlineKeyboardButton, InputMediaPhoto,
+from pyrogram.types import (InlineKeyboardMarkup, InputMediaPhoto,
                             Message)
 from pytgcalls.exceptions import NoActiveGroupCall
 
 import config
 from config import BANNED_USERS, lyrical
 from strings import get_command
-from AnonX import (Apple, Resso, SoundCloud, Spotify, Telegram,
+from YukkiMusic import (Apple, Resso, SoundCloud, Spotify, Telegram,
                         YouTube, app)
-from AnonX.core.call import Anon
-from AnonX.utils import seconds_to_min, time_to_seconds
-from AnonX.utils.channelplay import get_channeplayCB
-from AnonX.utils.database import is_video_allowed
-from AnonX.utils.decorators.language import languageCB
-from AnonX.utils.decorators.play import PlayWrapper
-from AnonX.utils.formatters import formats
-from AnonX.utils.inline.play import (livestream_markup,
+from YukkiMusic.core.call import Yukki
+from YukkiMusic.utils import seconds_to_min, time_to_seconds
+from YukkiMusic.utils.channelplay import get_channeplayCB
+from YukkiMusic.utils.database import is_video_allowed
+from YukkiMusic.utils.decorators.language import languageCB
+from YukkiMusic.utils.decorators.play import PlayWrapper
+from YukkiMusic.utils.formatters import formats
+from YukkiMusic.utils.inline.play import (livestream_markup,
                                           playlist_markup,
                                           slider_markup, track_markup)
-from AnonX.utils.database import is_served_user
-from AnonX.utils.inline.playlist import botplaylist_markup
-from AnonX.utils.logger import play_logs
-from AnonX.utils.stream.stream import stream
-from strings.filters import command
+from YukkiMusic.utils.inline.playlist import botplaylist_markup
+from YukkiMusic.utils.logger import play_logs
+from YukkiMusic.utils.stream.stream import stream
+
+
+
+force_btn = InlineKeyboardMarkup(
+    [
+        [
+            InlineKeyboardButton(
+                text="اشترك هنا", url="https://t.me/VVHH9"
+            ),                        
+        ],        
+    ]
+)
+
+async def check_is_joined(message):    
+    try:
+        userid = message.from_user.id
+        status = await app.get_chat_member("VVHH9", userid)
+        return True
+    except Exception:
+        await message.reply_text("*انت لست مشترك في قناة البوت @VVHH9 ** \n**انضم لتستطيع تشغيل الاغاني**",reply_markup=force_btn,parse_mode="markdown",disable_web_page_preview=False)
+        return False
 
 # Command
 PLAY_COMMAND = get_command("PLAY_COMMAND")
 
 
 @app.on_message(
-    command(PLAY_COMMAND)
+    filters.command(PLAY_COMMAND)
     & filters.group
+    & ~filters.edited
     & ~BANNED_USERS
 )
 @PlayWrapper
@@ -49,20 +80,8 @@ async def play_commnd(
     url,
     fplay,
 ):
-    if not await is_served_user(message.from_user.id):
-        await message.reply_text(
-            text="😢 عزيزي انت غير موثق في بيانات cr .\n☔ من فضلك استخدم /verify لتوثيق نفسك في بيانات افاتار.",
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            text="ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ ᴠᴇʀɪғʏ",
-                            url=f"https://t.me/{app.username}?start=verify",
-                        )
-                    ]
-                ]
-            ),
-        )
+    
+    if not await check_is_joined(message):
         return
     mystic = await message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]
@@ -71,8 +90,8 @@ async def play_commnd(
     slider = None
     plist_type = None
     spotify = None
-    user_id = message.from_user.id if message.from_user else "5881570606"
-    user_name = message.from_user.first_name if message.from_user else "None"
+    user_id = message.from_user.id
+    user_name = message.from_user.first_name
     audio_telegram = (
         (
             message.reply_to_message.audio
@@ -134,7 +153,6 @@ async def play_commnd(
                 )
                 return await mystic.edit_text(err)
             return await mystic.delete()
-        return
     elif video_telegram:
         if not await is_video_allowed(message.chat.id):
             return await mystic.edit_text(_["play_3"])
@@ -184,7 +202,6 @@ async def play_commnd(
                 )
                 return await mystic.edit_text(err)
             return await mystic.delete()
-        return
     elif url:
         if await YouTube.exists(url):
             if "playlist" in url:
@@ -224,7 +241,7 @@ async def play_commnd(
                 and not config.SPOTIFY_CLIENT_SECRET
             ):
                 return await mystic.edit_text(
-                    "ᴛʜɪs ʙᴏᴛ ᴄᴀɴ'ᴛ ᴩʟᴀʏ sᴩᴏᴛɪғʏ ᴛʀᴀᴄᴋs ᴀɴᴅ ᴩʟᴀʏʟɪsᴛs, ᴩʟᴇᴀsᴇ ᴄᴏɴᴛᴀᴄᴛ ᴍʏ ᴏᴡɴᴇʀ ᴀɴᴅ ᴀsᴋ ʜɪᴍ ᴛᴏ ᴀᴅᴅ sᴩᴏᴛɪғʏ ᴩʟᴀʏᴇʀ."
+                    "This bot isn't able to play spotify queries. Please ask my owner to enable spotify."
                 )
             if "track" in url:
                 try:
@@ -342,14 +359,14 @@ async def play_commnd(
             return await mystic.delete()
         else:
             try:
-                await Anon.stream_call(url)
+                await Yukki.stream_call(url)
             except NoActiveGroupCall:
                 await mystic.edit_text(
-                    "ᴛʜᴇʀᴇ's ᴀɴ ᴇʀʀᴏʀ ɪɴ ᴛʜᴇ ʙᴏᴛ, ᴩʟᴇᴀsᴇ ʀᴇᴩᴏʀᴛ ɪᴛ ᴛᴏ sᴜᴩᴩᴏʀᴛ ᴄʜᴀᴛ ᴀs sᴏᴏɴ ᴀs ᴩᴏssɪʙʟᴇ."
+                    "There's an issue with the bot. Please report it to my owner and ask them to check logger group."
                 )
                 return await app.send_message(
                     config.LOG_GROUP_ID,
-                    "ᴩʟᴇᴀsᴇ ᴛᴜʀɴ ᴏɴ ᴠɪᴅᴇᴏᴄʜᴀᴛ ᴛᴏ sᴛʀᴇᴀᴍ ᴜʀʟ.",
+                    "Please turn on Voice Chat.. Bot is not able to stream urls..",
                 )
             except Exception as e:
                 return await mystic.edit_text(
@@ -365,7 +382,7 @@ async def play_commnd(
                     chat_id,
                     message.from_user.first_name,
                     message.chat.id,
-                    video=video,
+                    video=True,
                     streamtype="index",
                     forceplay=fplay,
                 )
@@ -416,7 +433,6 @@ async def play_commnd(
                     user_id,
                     "v" if video else "a",
                     "c" if channel else "g",
-                    "f" if fplay else "d",
                 )
                 return await mystic.edit_text(
                     _["play_15"],
@@ -560,7 +576,6 @@ async def play_music(client, CallbackQuery, _):
             CallbackQuery.from_user.id,
             mode,
             "c" if cplay == "c" else "g",
-            "f" if fplay else "d",
         )
         return await mystic.edit_text(
             _["play_15"],
@@ -598,7 +613,7 @@ async def play_music(client, CallbackQuery, _):
 async def anonymous_check(client, CallbackQuery):
     try:
         await CallbackQuery.answer(
-            "ʏᴏᴜ'ʀᴇ ᴀɴ ᴀɴᴏɴʏᴍᴏᴜs ᴀᴅᴍɪɴ\n\nʀᴇᴠᴇʀᴛ ʙᴀᴄᴋ ᴛᴏ ᴜsᴇʀ ᴀᴄᴄᴏᴜɴᴛ ғᴏʀ ᴜsɪɴɢ ᴍᴇ.",
+            "You're an Anonymous Admin\n\nGo to your group's setting \n-> Administrators List \n-> Click on your name \n-> uncheck REMAIN ANONYMOUS button there.",
             show_alert=True,
         )
     except:
@@ -606,7 +621,7 @@ async def anonymous_check(client, CallbackQuery):
 
 
 @app.on_callback_query(
-    filters.regex("AnonPlaylists") & ~BANNED_USERS
+    filters.regex("YukkiPlaylists") & ~BANNED_USERS
 )
 @languageCB
 async def play_playlists_command(client, CallbackQuery, _):

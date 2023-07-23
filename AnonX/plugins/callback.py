@@ -1,477 +1,331 @@
-import os
-import random
-import asyncio
-
 from pyrogram import filters
-from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
-from strings.filters import command
-from strings import get_string
-from config import (AUTO_DOWNLOADS_CLEAR, BANNED_USERS,
-                    SOUNCLOUD_IMG_URL, STREAM_IMG_URL,
-                    TELEGRAM_AUDIO_URL, TELEGRAM_VIDEO_URL,
-                    MUSIC_BOT_NAME, adminlist)
-from AnonX import YouTube, app
-from AnonX.core.call import Anon
-from AnonX.misc import SUDOERS, db
-from AnonX.utils import bot_sys_stats
-from AnonX.utils.database import (
-    get_active_chats,
-    get_lang,
-    is_active_chat,
-    is_music_playing,
-    is_nonadmin_chat,
-    music_off,
-    music_on,
-    set_loop,
-)
-from AnonX.utils.decorators.language import languageCB
-from AnonX.utils.formatters import seconds_to_min
-from AnonX.utils.inline import (
-    stream_markup,
-    stream_markup_timer,
-    telegram_markup,
-    telegram_markup_timer,
-    close_keyboard,
-)
-from AnonX.utils.stream.autoclear import auto_clean
-from AnonX.utils.thumbnails import gen_thumb
-
-wrong = {}
-checker = {}
-
-@app.on_callback_query(filters.regex("MainMarkup") & ~BANNED_USERS)
-@languageCB
-async def del_back_playlist(client, CallbackQuery, _):
-    await CallbackQuery.answer()
-    callback_data = CallbackQuery.data.strip()
-    callback_request = callback_data.split(None, 1)[1]
-    videoid, chat_id = callback_request.split("|")
-    if videoid == str(None):
-        buttons = telegram_markup(_, chat_id)
-    else:
-        buttons = stream_markup(_, videoid, chat_id)
-    chat_id = CallbackQuery.message.chat.id
-    try:
-        await CallbackQuery.edit_message_reply_markup(
-            reply_markup=InlineKeyboardMarkup(buttons)
-        )
-    except:
-        return
-    if chat_id not in checker:
-        checker[chat_id] = {}
-    checker[chat_id][CallbackQuery.message.message_id] = True
+from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
+from YukkiMusic import app as Client
+from YukkiMusic import app
 
 
-@app.on_callback_query(filters.regex("unban_assistant"))
-async def unban_assistant_(_, CallbackQuery):
-    callback_data = CallbackQuery.data.strip()
-    callback_request = callback_data.split(None, 1)[1]
-    chat_id, user_id = callback_request.split("|")
-    a = await app.get_chat_member(int(chat_id), app.id)
-    if not a.can_restrict_members:
-        return await CallbackQuery.answer(
-            "ɪ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴs ᴛᴏ ᴜɴʙᴀɴ ᴜsᴇʀs ɪɴ ᴛʜɪs ᴄʜᴀᴛ.",
-            show_alert=True,
-        )
-    else:
-        try:
-            await app.unban_chat_member(int(chat_id), int(user_id))
-        except:
-            return await CallbackQuery.answer(
-                "ғᴀɪʟᴇᴅ ᴛᴏ ᴜɴʙᴀɴ ᴛʜᴇ ᴀssɪsᴛᴀɴᴛ ᴀᴄᴄᴏᴜɴᴛ.",
-                show_alert=True,
-            )
-        return await CallbackQuery.edit_message_text(
-            "ᴀssɪsᴛᴀɴᴛ ᴀᴄᴄᴏᴜɴᴛ ᴜɴʙᴀɴɴᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ.\n\nᴛʀʏ ᴘʟᴀʏɪɴɢ ɴᴏᴡ..."
-        )
-
-
-@app.on_callback_query(filters.regex("ADMIN") & ~BANNED_USERS)
-@languageCB
-async def del_back_playlist(client, CallbackQuery, _):
-    callback_data = CallbackQuery.data.strip()
-    callback_request = callback_data.split(None, 1)[1]
-    command, chat = callback_request.split("|")
-    chat_id = int(chat)
-    if not await is_active_chat(chat_id):
-        return await CallbackQuery.answer(
-            _["general_6"], show_alert=True
-        )
-    mention = CallbackQuery.from_user.mention
-    is_non_admin = await is_nonadmin_chat(
-        CallbackQuery.message.chat.id
+@Client.on_callback_query(filters.regex("arbic"))
+async def arbic(_, query: CallbackQuery):
+    await query.answer("home start")
+    await query.edit_message_text(
+        f""" 🐰**[مرحبا بك] [{query.message.chat.first_name}](tg://user?id={query.message.chat.id}) ! \n
+※ [انا بوت تشغيل الأغاني والفيديو  في المكالمه المرئية](https://t.me/VVHH9) \n
+※[لاظهار كيبورد الاعضاء اضغط](https://t.me/VVHH9) /AFYN \n
+※ [في حال مواجهه اي مشكله انضم هنا](https://t.me/VVHH9)\n [ᖴ᥆ᖇ 𝐒𝐎𝐔𝐑𝐂𝐄•𝐂𝐑𝐘𝐒𝐓𝐀𝐋. 🐰](https://t.me/VVHH9)
+※ [استخدم الازرار لمعرفه الاوامر المستخدمه.](https://t.me/VVHH9) """,
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "اضف البوت اللي مجموعتك ",
+                        url=f"https://t.me/{app.username}?startgroup=true",
+                    )
+                ],
+                [InlineKeyboardButton("الدعم والتواصل", url=f"https://t.me/ZVZV4"),
+                
+InlineKeyboardButton("لتفعيل كيبورد الاعضاء", callback_data="afyona"),
+                ],
+                [                   InlineKeyboardButton("طريقة التشغيل", callback_data="bcmds"),
+                    InlineKeyboardButton("طريقة التفعيل", callback_data="Afyon"),
+                ],
+                [
+                    InlineKeyboardButton(
+                        "الجروب", url=f"https://t.me/ZVZV4"
+                    ),
+                    InlineKeyboardButton(
+                        "القناة", url=f"https://t.me/VVHH9"
+                    ),
+                ],
+                [
+                    InlineKeyboardButton(
+                        "𝖥𝗈𝗋 𝐒𝐎𝐔𝐑𝐂𝐄•𝐂𝐑𝐘𝐒𝐓𝐀𝐋 . 💸", url="https://t.me/N_1_F"
+                    )
+                ],
+            ]
+        ),
+        disable_web_page_preview=True,
     )
-    if not is_non_admin:
-        if CallbackQuery.from_user.id not in SUDOERS:
-            admins = adminlist.get(CallbackQuery.message.chat.id)
-            if not admins:
-                return await CallbackQuery.answer(
-                    _["admin_18"], show_alert=True
-                )
-            else:
-                if CallbackQuery.from_user.id not in admins:
-                    return await CallbackQuery.answer(
-                        _["admin_19"], show_alert=True
+
+@Client.on_callback_query(filters.regex("english"))
+async def english(_, query: CallbackQuery):
+    await query.answer("home start")
+    await query.edit_message_text(
+        f" [※A Telegram Music Bot Based Mongodb](https://t.me/VVHH9) \n ※[Add Me To Ur Chat For and Help and And Support Click On Buttons](https://t.me/VVHH9) \n ※[These Features AI Based](https://t.me/VVHH9)",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "Add me to your Group ",
+                        url=f"https://t.me/{app.username}?startgroup=true",
                     )
-    if command == "Pause":
-        if not await is_music_playing(chat_id):
-            return await CallbackQuery.answer(
-                _["admin_1"], show_alert=True
-            )
-        await CallbackQuery.answer()
-        await music_off(chat_id)
-        await Anon.pause_stream(chat_id)
-        await CallbackQuery.message.reply_text(
-            _["admin_2"].format(mention),
-            reply_markup=close_keyboard
-        )
-    elif command == "Resume":
-        if await is_music_playing(chat_id):
-            return await CallbackQuery.answer(
-                _["admin_3"], show_alert=True
-            )
-        await CallbackQuery.answer()
-        await music_on(chat_id)
-        await Anon.resume_stream(chat_id)
-        await CallbackQuery.message.reply_text(
-            _["admin_4"].format(mention),
-            reply_markup=close_keyboard
-        )
-    elif command == "Stop" or command == "End":
-        await CallbackQuery.answer()
-        await Anon.stop_stream(chat_id)
-        await set_loop(chat_id, 0)
-        await CallbackQuery.message.delete()
-        await CallbackQuery.message.reply_text(
-            _["admin_9"].format(mention),
-            reply_markup=close_keyboard)
-        try:
-            popped = check.pop(0)
-        except:
-            return await CallbackQuery.answer(
-                _["admin_22"], show_alert=True
-            )
-        check = db.get(chat_id)
-        if not check:
-            check.insert(0, popped)
-            return await CallbackQuery.answer(
-                _["admin_22"], show_alert=True
-            )
-        await CallbackQuery.answer()
-        random.shuffle(check)
-        check.insert(0, popped)
-        await CallbackQuery.message.reply_text(
-            _["admin_23"].format(mention)
-        )
-    elif command == "Skip":
-        check = db.get(chat_id)
-        txt = f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🥺\n│ \n└ʙʏ : {mention} 🥀"
-        popped = None
-        try:
-            popped = check.pop(0)
-            if popped:
-                if AUTO_DOWNLOADS_CLEAR == str(True):
-                    await auto_clean(popped)
-            if not check:
-                await CallbackQuery.edit_message_text(
-                    f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🥺\n│ \n└ʙʏ : {mention} 🥀",
-                    reply_markup=close_keyboard
-                )
-                await CallbackQuery.message.reply_text(
-                    _["admin_10"].format(mention, CallbackQuery.message.chat.title)
-                )
-                try:
-                    return await Anon.stop_stream(chat_id)
-                except:
-                    return
-        except:
-            try:
-                await CallbackQuery.edit_message_text(
-                    f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🥺\n│ \n└ʙʏ : {mention} 🥀",
-                    reply_markup=close_keyboard
-                )
-                await CallbackQuery.message.reply_text(
-                    _["admin_10"].format(mention, CallbackQuery.message.chat.title)
-                )
-                return await Anon.stop_stream(chat_id)
-            except:
-                return
-        await CallbackQuery.answer()
-        queued = check[0]["file"]
-        title = (check[0]["title"]).title()
-        user = check[0]["by"]
-        streamtype = check[0]["streamtype"]
-        videoid = check[0]["vidid"]
-        user_id = check[0]["user_id"]
-        duration_min = check[0]["dur"]
-        status = True if str(streamtype) == "video" else None
-        db[chat_id][0]["played"] = 0
-        if "live_" in queued:
-            n, link = await YouTube.video(videoid, True)
-            if n == 0:
-                return await CallbackQuery.message.reply_text(
-                    _["admin_11"].format(title)
-                )
-            try:
-                image = await YouTube.thumbnail(videoid, True)
-            except:
-                image = None
-            try:
-                await Anon.skip_stream(chat_id, link, video=status, image=image)
-            except Exception:
-                return await CallbackQuery.message.reply_text(
-                    _["call_9"]
-                )
-            button = telegram_markup(_, chat_id)
-            img = await gen_thumb(videoid, user_id)
-            run = await CallbackQuery.message.reply_photo(
-                photo=img,
-                caption=_["stream_1"].format(
-                    user,
-                    f"https://t.me/{app.username}?start=info_{videoid}",
-                ),
-                reply_markup=InlineKeyboardMarkup(button),
-            )
-            db[chat_id][0]["mystic"] = run
-            db[chat_id][0]["markup"] = "tg"
-            await CallbackQuery.edit_message_text(txt)
-        elif "vid_" in queued:
-            mystic = await CallbackQuery.message.reply_text(
-                _["call_10"], disable_web_page_preview=True
-            )
-            try:
-                file_path, direct = await YouTube.download(
-                    videoid,
-                    mystic,
-                    videoid=True,
-                    video=status,
-                )
-            except:
-                return await mystic.edit_text(_["call_9"])
-            try:
-                image = await YouTube.thumbnail(videoid, True)
-            except:
-                image = None
-            try:
-                await Anon.skip_stream(
-                    chat_id, file_path, video=status, image=image
-                )
-            except Exception:
-                return await mystic.edit_text(_["call_9"])
-            button = stream_markup(_, videoid, chat_id)
-            img = await gen_thumb(videoid, user_id)
-            run = await CallbackQuery.message.reply_photo(
-                photo=img,
-                caption=_["stream_1"].format(
-                    title[:27],
-                    f"https://t.me/{app.username}?start=info_{videoid}",
-                    duration_min,
-                    user,
-                ),
-                reply_markup=InlineKeyboardMarkup(button),
-            )
-            db[chat_id][0]["mystic"] = run
-            db[chat_id][0]["markup"] = "stream"
-            await CallbackQuery.edit_message_text(txt)
-            await mystic.delete()
-        elif "index_" in queued:
-            try:
-                await Anon.skip_stream(
-                    chat_id, videoid, video=status
-                )
-            except Exception:
-                return await CallbackQuery.message.reply_text(
-                    _["call_9"]
-                )
-            button = telegram_markup(_, chat_id)
-            run = await CallbackQuery.message.reply_photo(
-                photo=STREAM_IMG_URL,
-                caption=_["stream_2"].format(user),
-                reply_markup=InlineKeyboardMarkup(button),
-            )
-            db[chat_id][0]["mystic"] = run
-            db[chat_id][0]["markup"] = "tg"
-            await CallbackQuery.edit_message_text(txt)
-        else:
-            if videoid == "telegram":
-                image = None
-            elif videoid == "soundcloud":
-                image = None
-            else:
-                try:
-                    image = await YouTube.thumbnail(videoid, True)
-                except:
-                    image = None
-            try:
-                await Anon.skip_stream(chat_id, queued, video=status, image=image)
-            except Exception:
-                return await CallbackQuery.message.reply_text(
-                    _["call_9"]
-                )
-            if videoid == "telegram":
-                button = telegram_markup(_, chat_id)
-                run = await CallbackQuery.message.reply_photo(
-                    photo=TELEGRAM_AUDIO_URL
-                    if str(streamtype) == "audio"
-                    else TELEGRAM_VIDEO_URL,
-                    caption=_["stream_3"].format(
-                        title, check[0]["dur"], user
+                ],
+                [InlineKeyboardButton(" Basic Guide", callback_data="cAfyon"),
+                
+InlineKeyboardButton(" member keyboard ", callback_data="N_1_F"),
+                ],
+                [                
+                    InlineKeyboardButton(" Commands", callback_data="cbcmds"),
+                    InlineKeyboardButton(" Donate", url=f"https://t.me/VVHH9"),
+                ],
+                [
+                    InlineKeyboardButton(
+                        "Group", url=f"https://t.me/ZVZV4"
                     ),
-                    reply_markup=InlineKeyboardMarkup(button),
-                )
-                db[chat_id][0]["mystic"] = run
-                db[chat_id][0]["markup"] = "tg"
-            elif videoid == "soundcloud":
-                button = telegram_markup(_, chat_id)
-                run = await CallbackQuery.message.reply_photo(
-                    photo=SOUNCLOUD_IMG_URL
-                    if str(streamtype) == "audio"
-                    else TELEGRAM_VIDEO_URL,
-                    caption=_["stream_3"].format(
-                        title, check[0]["dur"], user
+                    InlineKeyboardButton(
+                        "Channel", url=f"https://t.me/VVHH9"
                     ),
-                    reply_markup=InlineKeyboardMarkup(button),
-                )
-                db[chat_id][0]["mystic"] = run
-                db[chat_id][0]["markup"] = "tg"
-            else:
-                button = stream_markup(_, videoid, chat_id)
-                img = await gen_thumb(videoid, user_id)
-                run = await CallbackQuery.message.reply_photo(
-                    photo=img,
-                    caption=_["stream_1"].format(
-                    title[:27],
-                    f"https://t.me/{app.username}?start=info_{videoid}",
-                    duration_min,
-                    user,
-                ),
-                    reply_markup=InlineKeyboardMarkup(button),
-                )
-                db[chat_id][0]["mystic"] = run
-                db[chat_id][0]["markup"] = "stream"
-            await CallbackQuery.edit_message_text(txt)
-    else:
-        playing = db.get(chat_id)
-        if not playing:
-            return await CallbackQuery.answer(
-                _["queue_2"], show_alert=True
-            )
-        duration_seconds = int(playing[0]["seconds"])
-        if duration_seconds == 0:
-            return await CallbackQuery.answer(
-                _["admin_30"], show_alert=True
-            )
-        file_path = playing[0]["file"]
-        if "index_" in file_path or "live_" in file_path:
-            return await CallbackQuery.answer(
-                _["admin_30"], show_alert=True
-            )
-        duration_played = int(playing[0]["played"])
-        if int(command) in [1, 2]:
-            duration_to_skip = 10
-        else:
-            duration_to_skip = 30
-        duration = playing[0]["dur"]
-        if int(command) in [1, 3]:
-            if (duration_played - duration_to_skip) <= 10:
-                bet = seconds_to_min(duration_played)
-                return await CallbackQuery.answer(
-                    f"» ʙᴏᴛ ɪs ᴜɴᴀʙʟᴇ ᴛᴏ sᴇᴇᴋ ʙᴇᴄᴀᴜsᴇ ᴛʜᴇ ᴅᴜʀᴀᴛɪᴏɴ ᴇxᴄᴇᴇᴅs.\n\nᴄᴜʀʀᴇɴᴛʟʏ ᴩʟᴀʏᴇᴅ :** {bet}** ᴍɪɴᴜᴛᴇs ᴏᴜᴛ ᴏғ **{duration}** ᴍɪɴᴜᴛᴇs.",
-                    show_alert=True,
-                )
-            to_seek = duration_played - duration_to_skip + 1
-        else:
-            if (
-                duration_seconds
-                - (duration_played + duration_to_skip)
-            ) <= 10:
-                bet = seconds_to_min(duration_played)
-                return await CallbackQuery.answer(
-                    f"» ʙᴏᴛ ɪs ᴜɴᴀʙʟᴇ ᴛᴏ sᴇᴇᴋ ʙᴇᴄᴀᴜsᴇ ᴛʜᴇ ᴅᴜʀᴀᴛɪᴏɴ ᴇxᴄᴇᴇᴅs.\n\nᴄᴜʀʀᴇɴᴛʟʏ ᴩʟᴀʏᴇᴅ :** {bet}** ᴍɪɴᴜᴛᴇs ᴏᴜᴛ ᴏғ **{duration}** ᴍɪɴᴜᴛᴇs.",
-                    show_alert=True,
-                )
-            to_seek = duration_played + duration_to_skip + 1
-        await CallbackQuery.answer()
-        mystic = await CallbackQuery.message.reply_text(_["admin_32"])
-        if "vid_" in file_path:
-            n, file_path = await YouTube.video(
-                playing[0]["vidid"], True
-            )
-            if n == 0:
-                return await mystic.edit_text(_["admin_30"])
-        try:
-            await Anon.seek_stream(
-                chat_id,
-                file_path,
-                seconds_to_min(to_seek),
-                duration,
-                playing[0]["streamtype"],
-            )
-        except:
-            return await mystic.edit_text(_["admin_34"])
-        if int(command) in [1, 3]:
-            db[chat_id][0]["played"] -= duration_to_skip
-        else:
-            db[chat_id][0]["played"] += duration_to_skip
-        string = _["admin_33"].format(seconds_to_min(to_seek))
-        await mystic.edit_text(
-            f"{string}\n\nᴄʜᴀɴɢᴇs ᴅᴏɴᴇ ʙʏ : {mention} !"
-        )
-
-
-async def markup_timer():
-    while not await asyncio.sleep(4):
-        active_chats = await get_active_chats()
-        for chat_id in active_chats:
-            try:
-                if not await is_music_playing(chat_id):
-                    continue
-                playing = db.get(chat_id)
-                if not playing:
-                    continue
-                duration_seconds = int(playing[0]["seconds"])
-                if duration_seconds == 0:
-                    continue
-                try:
-                    mystic = playing[0]["mystic"]
-                    markup = playing[0]["markup"]
-                except:
-                    continue
-                try:
-                    check = checker[chat_id][mystic.message_id]
-                    if check is False:
-                        continue
-                except:
-                    pass
-                try:
-                    language = await get_lang(chat_id)
-                    _ = get_string(language)
-                except:
-                    _ = get_string("en")
-                try:
-                    buttons = (
-                        stream_markup_timer(
-                            _,
-                            playing[0]["vidid"],
-                            chat_id,
-                            seconds_to_min(playing[0]["played"]),
-                            playing[0]["dur"],
-                        )
-                        if markup == "stream"
-                        else telegram_markup_timer(
-                            _,
-                            chat_id,
-                            seconds_to_min(playing[0]["played"]),
-                            playing[0]["dur"],
-                        )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "𝖥𝗈𝗋 𝐒𝐎𝐔𝐑𝐂𝐄•𝐂𝐑𝐘𝐒𝐓𝐀𝐋 . 💸", url="https://t.me/N_1_F"
                     )
-                    await mystic.edit_reply_markup(
-                        reply_markup=InlineKeyboardMarkup(buttons)
-                    )
-                except:
-                    continue
-            except:
-                continue
+                ],
+            ]
+        ),
+        disable_web_page_preview=True,
+    )
+
+@Client.on_callback_query(filters.regex("cAfyon"))
+async def cbguides(_, query: CallbackQuery):
+    await query.answer("user guide")
+    await query.edit_message_text(
+        f"""📚 **Basic Guide for using this bot:**
+1.) **First, add me to your group.**
+2.) **Then, promote me as administrator and give all permissions except Anonymous Admin.**
+3.) **After promoting me, type /reload in group to refresh the admin data.**
+3.) **Add @{ASSISTANT_NAME} to your group or type /userbotjoin to invite her.**
+4.) **Turn on the video chat first before start to play video/music.**
+5.) **Sometimes, reloading the bot by using /reload command can help you to fix some problem.**
+📌 **If the userbot not joined to video chat, make sure if the video chat already turned on, or type /userbotleave then type /userbotjoin again.**
+💎 **If you have a follow-up questions about this bot, you can tell it on my support chat here: @{GROUP_SUPPORT}**
+""",
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton("🔙 Go Back", callback_data="english")]]
+        ),
+    )
+
+@Client.on_callback_query(filters.regex("N_1_F"))
+async def cbguides(_, query: CallbackQuery):
+    await query.answer("user guide")
+    await query.edit_message_text(
+        f"""🐰 **※Welcome \n
+※Show members keyboard Send /ARN \n\n
+※Show entertainment keyboard send /AFYN**
+""",
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton("🔙 Go Back", callback_data="english")]]
+        ),
+    )
+    
+    
+@Client.on_callback_query(filters.regex("cbcmds"))
+async def cbcmds(_, query: CallbackQuery):
+    await query.answer("commands menu")
+    await query.edit_message_text(
+        f"""🥹♥ **Hello [{query.message.chat.first_name}](tg://user?id={query.message.chat.id}) !**
+» **press the button below to read the explanation and see the list of available commands !**
+√ __Powered by 𝖥𝗈𝗋 𝐒𝐎𝐔𝐑𝐂𝐄•𝐂𝐑𝐘𝐒𝐓𝐀𝐋 . 💸 """,
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton("Admin Cmd", callback_data="cbadmin"),
+                    InlineKeyboardButton("Sudo Cmd", callback_data="cbsudo"),
+                ],[
+                    InlineKeyboardButton("Basic Cmd", callback_data="cbbasic")
+                ],[
+                    InlineKeyboardButton("Go Back ", callback_data="english")
+                ],
+            ]
+        ),
+    )
 
 
-asyncio.create_task(markup_timer())
+@Client.on_callback_query(filters.regex("cbbasic"))
+async def cbbasic(_, query: CallbackQuery):
+    await query.answer("basic commands")
+    await query.edit_message_text(
+        f""" here is the basic commands:
+» /play (song name/link) - play music on video chat
+» /vplay (video name/link) - play video on video chat
+» /vstream - play live video from yt live/m3u8
+» /playlist - show you the playlist
+» /video (query) - download video from youtube
+» /song (query) - download song from youtube
+» /lyric (query) - scrap the song lyric
+» /search (query) - search a youtube video link
+» /ping - show the bot ping status
+» /speedtest - run the bot server speedtest
+» /uptime - show the bot uptime status
+» /alive - show the bot alive info (in group)
+""",
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton("🔙 Go Back", callback_data="cbcmds")]]
+        ),
+    )
+
+
+@Client.on_callback_query(filters.regex("cbadmin"))
+async def cbadmin(_, query: CallbackQuery):
+    await query.answer("admin commands")
+    await query.edit_message_text(
+        f""" here is the admin commands:
+» /pause - pause the stream
+» /resume - resume the stream
+» /skip - switch to next stream
+» /stop - stop the streaming
+» /vmute - mute the userbot on voice chat
+» /vunmute - unmute the userbot on voice chat
+» /volume `1-200` - adjust the volume of music (userbot must be admin)
+» /reload - reload bot and refresh the admin data
+» /userbotjoin - invite the userbot to join group
+» /userbotleave - order userbot to leave from group
+""",
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton("🔙 Go Back", callback_data="cbcmds")]]
+        ),
+    )
+
+@Client.on_callback_query(filters.regex("cbsudo"))
+async def cbsudo(_, query: CallbackQuery):
+    await query.answer("sudo commands")
+    await query.edit_message_text(
+        f""" here is the sudo commands:
+» /rmw - clean all raw files
+» /rmd - clean all downloaded files
+» /sysinfo - show the system information
+» /update - update your bot to latest version
+» /restart - restart your bot
+» /leaveall - order userbot to leave from all group
+""",
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton("🔙 Go Back", callback_data="cbcmds")]]
+        ),
+    )
+
+
+@Client.on_callback_query(filters.regex("Afyon"))
+async def acbguides(_, query: CallbackQuery):
+    await query.edit_message_text(
+        f"""🎥**طريقة تفعيل البوت في مجموعتك :**
+1.) **اولا قم بإضافة البوت اللي مجموعتك \n√.**
+2.) **قم بترقيى البوت مشرف مع الصلاحيات المطلوبة \n√.**
+3.) ** لتحديث قائمة الادمن /Reload قم بكتابة الامر \n√.**
+3.) ** /uesrbotjoin قم بإضافة الحساب المساعد اللي المجموعة عن طريق كاتبة الامر /انضم او \n√.**
+4.) **تاكد كن تشغيل المحادثة المرئية \n√.**
+5.) ** /Reload اذا واجهت خطأ قم بكتابة الامر \n√.**
+💎 ** في حال لم يستطع الحساب المساعد الانضمام اللي المحادثة المرئية قم بطرد الحساب المساعد بالأمر /غادر \n√.  \n ودعوتة من جديد عنريق الامر /انضم \n√.**
+\n√ **في حال واجهت اي مشكلة اخري يمكنك التواصل مع افيونا من هن : @N_1_F **
+\n __ Developer by [𝖥𝗈𝗋 𝐒𝐎𝐔𝐑𝐂𝐄•𝐂𝐑𝐘𝐒𝐓𝐀𝐋 . 💸](https://t.me/N_1_F)""",
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton("العودة", callback_data="arbic")]]
+        ),
+    )
+
+
+@Client.on_callback_query(filters.regex("bcmds"))
+async def acbcmds(_, query: CallbackQuery):
+    await query.edit_message_text(
+        f"""🐰**Hello [{query.message.chat.first_name}](tg://user?id={query.message.chat.id}) !**
+※ **اتبع الازرار بالاسفل لمعرفة طريقة التشغيل **
+\n __ Developer by [𝖥𝗈𝗋 𝐒𝐎𝐔𝐑𝐂𝐄•𝐂𝐑𝐘𝐒𝐓𝐀𝐋 . 💸](https://t.me/N_1_F)""",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton("اوامر التشغيل", callback_data="bbasic"),
+                    InlineKeyboardButton("اوامر الادمن", callback_data="badmin"),
+                ],[
+                    InlineKeyboardButton("اوامر المطورين", callback_data="bsudo")
+                ],[
+                    InlineKeyboardButton("العودة", callback_data="arbic")
+                ],
+            ]
+        ),
+    )
+
+
+@Client.on_callback_query(filters.regex("bbasic"))
+async def acbbasic(_, query: CallbackQuery):
+    await query.edit_message_text(
+        f"""اوامر التشغيل :
+» /play (اسم الموسيقي / link ) - لتشغيل الموسيقى في المحادثة الصوتية 
+» /stream ( قم بالرد علي الملف /link) - لتشغيل مقطع فيديو موجود في الدردشة
+» /vplay (اسم الفيديو /link) - لتشغيل مقطع فيديو 
+» /vstream - لنشغيل بث مباشر
+» /playlist - لعرض قائمة التشغيل
+» /video - لتحميل مقطع فيديو
+» /song - لتحميل ملف صوتي 
+» /lyric - لجلب كلمات الاغنية 
+» /search - البحث عن روابط يوتيوب
+» /ping - عرض سرعة الاستجابة
+» /uptime - وقت تشغيل البوت
+» /alive - لعرض معلومات البوت 
+\n __ Developer by [𝖥𝗈𝗋 𝐒𝐎𝐔𝐑𝐂𝐄•𝐂𝐑𝐘𝐒𝐓𝐀𝐋 . 💸](https://t.me/N_1_F)""",
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton("العودة", callback_data="bcmds")]]
+        ),
+    )
+
+
+@Client.on_callback_query(filters.regex("badmin"))
+async def acbadmin(_, query: CallbackQuery):
+    await query.edit_message_text(
+        f"""اوامر التحكم للخاصة بالادمنية:
+» /pause - ايقاف التشغيل موقتأ
+» /resume - لاستكمال التشغيل
+» /skip - لتخطي تشغيل الحالي
+» /stop - لايقاف تشغيل الحالي
+» /vmute - لكتم الحساب المساعد في المحادثة الصوتية
+» /vunmute - الغاء كتم الحساب المساعد
+» /volume `1-200` - لتحكم في درجة الصوت
+» /reload - لتحديث قائمة الادمن للتحكم في البوت
+» /userbotjoin - لدعوة الحساب المساعد للدردشة
+» /userbotleave - لطرد الحساب المساعد من الدردشة
+\n __ Developer by [𝖥𝗈𝗋 𝐒𝐎𝐔𝐑𝐂𝐄•𝐂𝐑𝐘𝐒𝐓𝐀𝐋 . 💸](https://t.me/N_1_F)""",
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton("العودة", callback_data="bcmds")]]
+        ),
+    )
+    
+@Client.on_callback_query(filters.regex("afyona"))
+async def acbadmin(_, query: CallbackQuery):
+    await query.edit_message_text(
+        f"""※ مرحبا بك \n ※ لتفعيل كيبورد الاعضاء ارسل /ARN \n ※ لتفعيل كيبورد التسليه ارسل /AFYN""",
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton("العودة", callback_data="bcmds")]]
+        ),
+    )
+
+@Client.on_callback_query(filters.regex("bsudo"))
+async def acbsudo(_, query: CallbackQuery):
+    await query.edit_message_text(
+        f"""اوامر المطورين :
+» /rmw - لمسح جميع الملفات المتخزنة
+» /rmd - تنظيف التخزين المؤقت
+» /sysinfo - لعرض قدرات التشغيل
+» /update - لتحديث اصدار السورس
+» /restart - إعادة تشغيل البوت
+» /leaveall - خروج الحساب المساعد من جميع المحادثات
+\n__ Developer by [𝖥𝗈𝗋 𝐒𝐎𝐔𝐑𝐂𝐄•𝐂𝐑𝐘𝐒𝐓𝐀𝐋 . 💸](https://t.me/N_1_F)""",
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton("العودة", callback_data="bcmds")]]
+        ),
+    )
+
+@Client.on_callback_query(filters.regex("N_1_F"))
+async def acbadmin(_, query: CallbackQuery):
+    await query.edit_message_text(
+        f"""<b> يمكنك التواصل معي \n عن طريق معرفي اول جروب التواصل بلاسفل..↑↓ \n\n [𝖥𝗈𝗋 𝐒𝐎𝐔𝐑𝐂𝐄•𝐂𝐑𝐘𝐒𝐓𝐀𝐋 . 💸](https://t.me/N_1_F)</b>""",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton("القناة", url=f"https://t.me/VVHH9"),
+                    InlineKeyboardButton("الجروب", url=f"https://t.me/ZVZV4"),
+                ],
+                [
+                    InlineKeyboardButton("البوت", url=f"https://t.me/K0HBOT"),
+                    InlineKeyboardButton("التواصل", url=f"https://t.me/Taw"),
+                ],
+                [InlineKeyboardButton("ᖴ᥆ᖇ. 🐉", url=f"https://t.me/N_1_F")],
+            ]
+        ),
+    )

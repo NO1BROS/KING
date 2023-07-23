@@ -1,24 +1,33 @@
+#
+# Copyright (C) 2021-2022 by TeamYukki@Github, < https://github.com/TeamYukki >.
+#
+# This file is part of < https://github.com/TeamYukki/YukkiMusicBot > project,
+# and is released under the "GNU v3.0 License Agreement".
+# Please see < https://github.com/TeamYukki/YukkiMusicBot/blob/master/LICENSE >
+#
+# All rights reserved.
+
 import os
 from random import randint
-from strings.filters import command
+
 from pykeyboard import InlineKeyboard
+from YukkiMusic.plugins.play.filters import command
 from pyrogram import filters
 from pyrogram.types import (InlineKeyboardButton,
                             InlineKeyboardMarkup, Message)
 
 from config import BANNED_USERS, SERVER_PLAYLIST_LIMIT
 from strings import get_command
-from AnonX import Carbon, YouTube, app
-from AnonX.utils.database import (delete_playlist, get_playlist,
+from YukkiMusic import Carbon, YouTube, app
+from YukkiMusic.utils.database import (delete_playlist, get_playlist,
                                        get_playlist_names,
                                        save_playlist)
-from AnonX.utils.decorators.language import language, languageCB
-from AnonX.utils.inline.play import close_keyboard
-from AnonX.utils.inline.playlist import (botplaylist_markup,
+from YukkiMusic.utils.decorators.language import language, languageCB
+from YukkiMusic.utils.inline.playlist import (botplaylist_markup,
                                               get_playlist_markup,
                                               warning_markup)
-from AnonX.utils.pastebin import Anonbin
-from AnonX.utils.stream.stream import stream
+from YukkiMusic.utils.pastebin import Yukkibin
+from YukkiMusic.utils.stream.stream import stream
 
 # Command
 PLAYLIST_COMMAND = get_command("PLAYLIST_COMMAND")
@@ -27,6 +36,7 @@ DELETEPLAYLIST_COMMAND = get_command("DELETEPLAYLIST_COMMAND")
 
 @app.on_message(
     command(PLAYLIST_COMMAND)
+    & ~filters.edited
     & ~BANNED_USERS
 )
 @language
@@ -46,7 +56,7 @@ async def check_playlist(client, message: Message, _):
         count += 1
         msg += f"\n\n{count}- {title[:70]}\n"
         msg += _["playlist_5"].format(duration)
-    link = await Anonbin(msg)
+    link = await Yukkibin(msg)
     lines = msg.count("\n")
     if lines >= 17:
         car = os.linesep.join(msg.split(os.linesep)[:17])
@@ -62,6 +72,7 @@ async def check_playlist(client, message: Message, _):
 @app.on_message(
     command(DELETEPLAYLIST_COMMAND)
     & filters.group
+    & ~filters.edited
     & ~BANNED_USERS
 )
 @language
@@ -106,7 +117,7 @@ async def get_keyboard(_, user_id):
 
 
 @app.on_message(
-    filters.command(DELETEPLAYLIST_COMMAND)
+    command(DELETEPLAYLIST_COMMAND)
     & filters.private
     & ~filters.edited
     & ~BANNED_USERS
@@ -214,9 +225,8 @@ async def add_playlist(client, CallbackQuery, _):
     await save_playlist(user_id, videoid, plist)
     try:
         title = (title[:30]).title()
-        return await CallbackQuery.message.reply_text(
-            text="❄ sᴜᴄᴄᴇssғᴜʟʟʏ ᴀᴅᴅᴇᴅ ᴛᴏ ᴩʟᴀʏʟɪsᴛ.\n │\n └ʀᴇǫᴜᴇsᴛᴇᴅ ʙʏ : {0}".format(CallbackQuery.from_user.mention),
-            reply_markup=close_keyboard,
+        return await CallbackQuery.answer(
+            _["playlist_10"].format(title), show_alert=True
         )
     except:
         return

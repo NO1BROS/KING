@@ -1,17 +1,26 @@
+#
+# Copyright (C) 2021-2022 by TeamYukki@Github, < https://github.com/TeamYukki >.
+#
+# This file is part of < https://github.com/TeamYukki/YukkiMusicBot > project,
+# and is released under the "GNU v3.0 License Agreement".
+# Please see < https://github.com/TeamYukki/YukkiMusicBot/blob/master/LICENSE >
+#
+# All rights reserved.
+
 import asyncio
-from strings.filters import command
+
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup
 
 from config import BANNED_USERS
-from AnonX import app
-from AnonX.utils.database import (get_global_tops,
+from YukkiMusic import app
+from YukkiMusic.utils.database import (get_global_tops,
                                        get_particulars, get_userss)
-from AnonX.utils.decorators.language import languageCB
-from AnonX.utils.inline.playlist import (botplaylist_markup,
+from YukkiMusic.utils.decorators.language import languageCB
+from YukkiMusic.utils.inline.playlist import (botplaylist_markup,
                                               failed_top_markup,
                                               top_play_markup)
-from AnonX.utils.stream.stream import stream
+from YukkiMusic.utils.stream.stream import stream
 
 loop = asyncio.get_running_loop()
 

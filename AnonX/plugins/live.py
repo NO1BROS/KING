@@ -1,11 +1,20 @@
+#
+# Copyright (C) 2021-2022 by TeamYukki@Github, < https://github.com/TeamYukki >.
+#
+# This file is part of < https://github.com/TeamYukki/YukkiMusicBot > project,
+# and is released under the "GNU v3.0 License Agreement".
+# Please see < https://github.com/TeamYukki/YukkiMusicBot/blob/master/LICENSE >
+#
+# All rights reserved.
+
 from pyrogram import filters
 
 from config import BANNED_USERS
-from AnonX import YouTube, app
-from AnonX.utils.channelplay import get_channeplayCB
-from AnonX.utils.decorators.language import languageCB
-from AnonX.utils.stream.stream import stream
-from strings.filters import command
+from YukkiMusic import YouTube, app
+from YukkiMusic.utils.channelplay import get_channeplayCB
+from YukkiMusic.utils.decorators.language import languageCB
+from YukkiMusic.utils.stream.stream import stream
+
 
 @app.on_callback_query(filters.regex("LiveStream") & ~BANNED_USERS)
 @languageCB
@@ -64,5 +73,5 @@ async def play_live_stream(client, CallbackQuery, _):
             )
             return await mystic.edit_text(err)
     else:
-        return await mystic.edit_text("ɪ ᴅᴏɴ'ᴛ ᴛʜɪɴᴋ ᴛʜᴀᴛ ɪᴛ's ᴀ ʟɪᴠᴇ sᴛʀᴇᴀᴍ.")
+        return await mystic.edit_text("Not a live stream")
     await mystic.delete()
